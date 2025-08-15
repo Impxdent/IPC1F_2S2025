@@ -34,9 +34,8 @@ public class Practica1 {
 
             opc = sc.nextInt();
 
-            // Opción 1: Agregar personaje
             if (opc == 1) {
-                sc.nextLine(); // Limpiar buffer
+                sc.nextLine();
                 System.out.print("Nombre del personaje: ");
                 String nombre = sc.nextLine();
 
@@ -50,7 +49,7 @@ public class Practica1 {
                 if (existe) {
                     System.out.println("Ese nombre ya existe.");
                 } else {
-                    nombres[totalPersonajes] = nombre; // ✅ Guardar el nombre
+                    nombres[totalPersonajes] = nombre;
                     System.out.print("Arma: ");
                     armas[totalPersonajes] = sc.nextLine();
 
@@ -73,9 +72,8 @@ public class Practica1 {
                 }
             }
 
-            // Opción 2: Modificar personaje
             if (opc == 2) {
-                sc.nextLine(); // Limpiar buffer
+                sc.nextLine(); 
                 System.out.print("Ingrese nombre del personaje a modificar: ");
                 String nombre = sc.nextLine();
                 int index = -1;
@@ -105,9 +103,8 @@ public class Practica1 {
                 }
             }
 
-            // Opción 3: Eliminar personaje
             if (opc == 3) {
-                sc.nextLine(); // Limpiar buffer
+                sc.nextLine(); 
                 System.out.print("Ingrese nombre del personaje a eliminar: ");
                 String nombre = sc.nextLine();
                 int index = -1;
@@ -130,9 +127,8 @@ public class Practica1 {
                 }
             }
 
-            // Opción 4: Ver datos de un personaje
             if (opc == 4) {
-                sc.nextLine(); // Limpiar buffer
+                sc.nextLine(); 
                 System.out.print("Ingrese nombre del personaje: ");
                 String nombre = sc.nextLine();
                 int index = -1;
@@ -155,7 +151,6 @@ public class Practica1 {
                 }
             }
 
-            // Opción 5: Listar personajes
             if (opc == 5) {
                 if (totalPersonajes == 0) {
                     System.out.println("No hay personajes registrados.");
@@ -166,7 +161,6 @@ public class Practica1 {
                 }
             }
 
-            // Opción 6: Registrar pelea
             if (opc == 6) {
                 System.out.print("ID del primer personaje: ");
                 int id1 = sc.nextInt();
@@ -182,7 +176,6 @@ public class Practica1 {
                 }
             }
 
-            // Opción 7: Ver historial de peleas
             if (opc == 7) {
                 if (totalPeleas == 0) {
                     System.out.println("No hay peleas registradas.");
@@ -193,7 +186,6 @@ public class Practica1 {
                 }
             }
 
-            // Opción 8: Datos del estudiante
             if (opc == 8) {
                 System.out.println("Nombre del estudiante: " + estudianteNombre);
                 System.out.println("Carnet del estudiante: " + estudianteCarnet);
