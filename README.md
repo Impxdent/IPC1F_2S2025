@@ -4,6 +4,7 @@ Práctica 1: Gestión de personajes
 Introducción a la Programación y Computación 1 sección F
 
 Elaborado por: Eldan André Escobar Asturias
+
 Carnet: 202303088
 
 ---
