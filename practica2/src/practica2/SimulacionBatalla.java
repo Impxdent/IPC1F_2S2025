@@ -12,22 +12,20 @@ public class SimulacionBatalla extends JFrame {
     private JButton btnIniciarBatalla, btnMenu;
     private JTextArea txtBitacora;
     private boolean batallaEnCurso = false;
-    
+
     public SimulacionBatalla(Practica2 principal) {
         this.principal = principal;
-        setTitle("Simulación de Batalla");
+        setTitle("Simulacion de batalla");
         setSize(600, 500);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(null);
-        
-        // Registrar en bitácora
-        principal.registrarBitacora("Acceso a simulación de batallas");
+        setLocationRelativeTo(null);
 
-        // ComboBox para selección de personajes
+        //combobox para selección de personajes
         JLabel lblPersonaje1 = new JLabel("Personaje 1:");
         lblPersonaje1.setBounds(20, 20, 100, 25);
         add(lblPersonaje1);
-        
+
         cmbPersonaje1 = new JComboBox<>();
         cmbPersonaje1.setBounds(120, 20, 150, 25);
         add(cmbPersonaje1);
@@ -35,7 +33,7 @@ public class SimulacionBatalla extends JFrame {
         JLabel lblPersonaje2 = new JLabel("Personaje 2:");
         lblPersonaje2.setBounds(20, 50, 100, 25);
         add(lblPersonaje2);
-        
+
         cmbPersonaje2 = new JComboBox<>();
         cmbPersonaje2.setBounds(120, 50, 150, 25);
         add(cmbPersonaje2);
@@ -43,25 +41,20 @@ public class SimulacionBatalla extends JFrame {
         // Botones
         btnIniciarBatalla = new JButton("Iniciar Batalla");
         btnIniciarBatalla.setBounds(300, 35, 120, 30);
-        btnIniciarBatalla.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                iniciarBatalla();
-            }
-        });
+        btnIniciarBatalla.addActionListener(e -> iniciarBatalla());
         add(btnIniciarBatalla);
 
         btnMenu = new JButton("Menú Principal");
         btnMenu.setBounds(430, 35, 120, 30);
-        btnMenu.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                principal.setVisible(true);
-                dispose();
-            }
+        btnMenu.addActionListener(e -> {
+            principal.setVisible(true);
+            principal.registrarBitacora("Se regreso al menu principal");
+            dispose();
         });
         add(btnMenu);
 
-        // Área de texto para la bitácora de batalla
-        JLabel lblBitacora = new JLabel("Bitácora de Batalla:");
+        //mostrar datos en un área de texto para la bitácora de batalla
+        JLabel lblBitacora = new JLabel("Bitacora de Batalla:");
         lblBitacora.setBounds(20, 90, 150, 25);
         add(lblBitacora);
 
@@ -77,18 +70,20 @@ public class SimulacionBatalla extends JFrame {
     private void cargarPersonajes() {
         cmbPersonaje1.removeAllItems();
         cmbPersonaje2.removeAllItems();
-        
+
         for (int i = 0; i < principal.getTotalPersonajes(); i++) {
             Personaje p = principal.getPersonajes()[i];
             String item = (i + 1) + ". " + p.getNombre() + " (HP: " + p.getHp() + ")";
             cmbPersonaje1.addItem(item);
             cmbPersonaje2.addItem(item);
         }
+        principal.registrarBitacora("Lista de personajes cargados en la simulacion");
     }
 
     private void iniciarBatalla() {
         if (batallaEnCurso) {
-            JOptionPane.showMessageDialog(this, "Ya hay una batalla en curso.");
+            JOptionPane.showMessageDialog(this, "Error, ya hay una batalla en curso");
+            principal.registrarBitacora("Intento de iniciar batalla fallido: ya hay una en curso");
             return;
         }
 
@@ -96,12 +91,14 @@ public class SimulacionBatalla extends JFrame {
         int index2 = cmbPersonaje2.getSelectedIndex();
 
         if (index1 == -1 || index2 == -1) {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar dos personajes.");
+            JOptionPane.showMessageDialog(this, "Error, debe seleccionar dos personajes");
+            principal.registrarBitacora("Intento de iniciar batalla fallido: no se seleccionaron ambos personajes");
             return;
         }
 
         if (index1 == index2) {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar personajes diferentes.");
+            JOptionPane.showMessageDialog(this, "Error, debe seleccionar personajes diferentes");
+            principal.registrarBitacora("Intento de iniciar batalla fallido: mismos personajes seleccionados");
             return;
         }
 
@@ -110,7 +107,8 @@ public class SimulacionBatalla extends JFrame {
 
         // Validar que estén vivos
         if (p1.getHp() <= 0 || p2.getHp() <= 0) {
-            JOptionPane.showMessageDialog(this, "Ambos personajes deben estar vivos para combatir.");
+            JOptionPane.showMessageDialog(this, "Error, ambos personajes deben estar vivos para combatir");
+            principal.registrarBitacora("Intento de iniciar batalla fallido: uno de los personajes está muerto");
             return;
         }
 
@@ -120,15 +118,15 @@ public class SimulacionBatalla extends JFrame {
 
         // Registrar inicio de batalla
         String horaInicio = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
-        String registro = "🏁 BATALLA INICIADA: " + p1.getNombre() + " vs " + p2.getNombre() + " - " + horaInicio;
+        String registro = "Batalla iniciada: " + p1.getNombre() + " vs " + p2.getNombre() + " - " + horaInicio;
         txtBitacora.append(registro + "\n\n");
         principal.registrarHistorialBatalla(registro);
         principal.registrarBitacora("Inicio de batalla: " + p1.getNombre() + " vs " + p2.getNombre());
 
-        // Crear copias de los personajes para la batalla (para no modificar los originales)
-        Personaje copiaP1 = new Personaje(p1.getNombre(), p1.getArma(), p1.getHp(), p1.getAtaque(), 
+        // Crear copias de los personajes para la batalla
+        Personaje copiaP1 = new Personaje(p1.getNombre(), p1.getArma(), p1.getHp(), p1.getAtaque(),
                                          p1.getVelocidad(), p1.getAgilidad(), p1.getDefensa());
-        Personaje copiaP2 = new Personaje(p2.getNombre(), p2.getArma(), p2.getHp(), p2.getAtaque(), 
+        Personaje copiaP2 = new Personaje(p2.getNombre(), p2.getArma(), p2.getHp(), p2.getAtaque(),
                                          p2.getVelocidad(), p2.getAgilidad(), p2.getDefensa());
 
         // Crear hilos para la batalla
@@ -142,7 +140,6 @@ public class SimulacionBatalla extends JFrame {
     public void agregarLogBatalla(String mensaje) {
         SwingUtilities.invokeLater(() -> {
             txtBitacora.append(mensaje + "\n");
-            // Auto-scroll
             txtBitacora.setCaretPosition(txtBitacora.getDocument().getLength());
         });
     }
@@ -150,14 +147,14 @@ public class SimulacionBatalla extends JFrame {
     public void batallaTerminada(Personaje ganador, Personaje perdedor) {
         batallaEnCurso = false;
         btnIniciarBatalla.setEnabled(true);
-        
-        String resultado = "🎯 BATALLA TERMINADA - Ganador: " + ganador.getNombre() + 
+
+        String resultado = "Batalla finalizada - Ganador: " + ganador.getNombre() +
                           " (HP restante: " + ganador.getHp() + ")";
         agregarLogBatalla("\n" + resultado);
-        
+
         principal.registrarHistorialBatalla(resultado);
-        principal.registrarBitacora("Batalla terminada - Ganador: " + ganador.getNombre());
-        
+        principal.registrarBitacora("Batalla finalizada - Ganador: " + ganador.getNombre());
+
         JOptionPane.showMessageDialog(this, resultado);
     }
 }
@@ -169,7 +166,7 @@ class Combatiente implements Runnable {
     private Practica2 principal;
     private SimulacionBatalla ventanaBatalla;
 
-    public Combatiente(Personaje atacante, Personaje oponente, String nombreHilo, 
+    public Combatiente(Personaje atacante, Personaje oponente, String nombreHilo,
                       Practica2 principal, SimulacionBatalla ventanaBatalla) {
         this.atacante = atacante;
         this.oponente = oponente;
@@ -182,21 +179,15 @@ class Combatiente implements Runnable {
     public void run() {
         try {
             while (oponente.getHp() > 0 && atacante.getHp() > 0) {
-                // Calcular tiempo entre ataques basado en velocidad
                 int tiempoEspera = 1000 / atacante.getVelocidad();
-                if (tiempoEspera < 200) tiempoEspera = 200; // Mínimo 200ms
-                if (tiempoEspera > 2000) tiempoEspera = 2000; // Máximo 2 segundos
-                
+                tiempoEspera = Math.min(Math.max(tiempoEspera, 200), 2000); // Entre 200ms y 2s
                 Thread.sleep(tiempoEspera);
 
-                // Verificar si el oponente sigue vivo
                 if (oponente.getHp() <= 0) break;
 
-                // Realizar ataque
                 realizarAtaque();
             }
 
-            // Verificar si este hilo fue el que ganó
             if (atacante.getHp() > 0 && oponente.getHp() <= 0) {
                 ventanaBatalla.batallaTerminada(atacante, oponente);
             }
@@ -207,24 +198,22 @@ class Combatiente implements Runnable {
     }
 
     private void realizarAtaque() {
-        // Calcular probabilidad de golpe (basado en agilidad)
         double probabilidadGolpe = 0.7 + (atacante.getAgilidad() * 0.01);
         boolean golpeExitoso = Math.random() < probabilidadGolpe;
 
         if (golpeExitoso) {
-            // Calcular daño (ataque - defensa del oponente)
             int daño = atacante.getAtaque() - (oponente.getDefensa() / 3);
-            if (daño < 1) daño = 1; // Mínimo 1 de daño
-            
+            daño = Math.max(daño, 1);
+
             oponente.setHp(oponente.getHp() - daño);
-            
-            String log = "⚔️ " + atacante.getNombre() + " ataca a " + oponente.getNombre() + 
-                        " - ¡Golpe! (" + daño + " de daño) - HP restante: " + 
+
+            String log =  atacante.getNombre() + " ataca a " + oponente.getNombre() +
+                        " - Golpe! (" + daño + " de daño) - HP restante: " +
                         (oponente.getHp() > 0 ? oponente.getHp() : "0");
             ventanaBatalla.agregarLogBatalla(log);
-            principal.registrarBitacora("Ataque: " + atacante.getNombre() + " -> " + oponente.getNombre() + " (" + daño + " daño)");
+            principal.registrarBitacora("Ataque exitoso: " + atacante.getNombre() + " -> " + oponente.getNombre() + " (" + daño + " daño)");
         } else {
-            String log = "🛡️ " + atacante.getNombre() + " ataca a " + oponente.getNombre() + " - Falló (esquiva)";
+            String log = atacante.getNombre() + " ataca a " + oponente.getNombre() + " - fallo";
             ventanaBatalla.agregarLogBatalla(log);
             principal.registrarBitacora("Ataque fallido: " + atacante.getNombre() + " -> " + oponente.getNombre());
         }

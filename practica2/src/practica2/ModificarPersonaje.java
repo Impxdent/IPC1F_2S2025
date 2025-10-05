@@ -3,10 +3,6 @@ package practica2;
 import javax.swing.*;
 import java.awt.event.*;
 
-/**
- *
- * @author André
- */
 public class ModificarPersonaje extends JFrame {
     private Practica2 principal;
     private JTextField txtId, txtArma, txtHp, txtAtaque, txtVelocidad, txtAgilidad, txtDefensa;
@@ -19,6 +15,7 @@ public class ModificarPersonaje extends JFrame {
         setSize(400, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
+        setLocationRelativeTo(null);
 
         JLabel lId = new JLabel("ID");
         lId.setBounds(20, 20, 50, 25);
@@ -53,6 +50,7 @@ public class ModificarPersonaje extends JFrame {
         btnMenu.setBounds(200, y, 120, 30);
         btnMenu.addActionListener(e -> {
             principal.setVisible(true);
+            principal.registrarBitacora("Se regreso al menu principal");
             dispose();
         });
         add(btnMenu);
@@ -72,7 +70,8 @@ public class ModificarPersonaje extends JFrame {
         try {
             int id = Integer.parseInt(txtId.getText().trim()) - 1;
             if(id < 0 || id >= principal.getTotalPersonajes()) {
-                JOptionPane.showMessageDialog(this, "No existe personaje con ese ID");
+                JOptionPane.showMessageDialog(this, "No existe personaje con ese ID"); //validacion de existencia de id
+                principal.registrarBitacora("Se busco un ID inexistente");
                 return;
             }
             Personaje p = principal.getPersonajes()[id];
@@ -83,16 +82,25 @@ public class ModificarPersonaje extends JFrame {
             txtVelocidad.setText(""+p.getVelocidad());
             txtAgilidad.setText(""+p.getAgilidad());
             txtDefensa.setText(""+p.getDefensa());
+
+            principal.registrarBitacora("Personaje buscado para modificar: " + p.getNombre() + " (ID: " + (id+1) + ")");
         } catch(Exception e) {
-            JOptionPane.showMessageDialog(this, "Ingrese un ID válido");
+            JOptionPane.showMessageDialog(this, "Ingrese un ID valido");
+            principal.registrarBitacora("Se ingreso un ID invalido");
         }
     }
 
     private void guardarCambios() {
         try {
             int id = Integer.parseInt(txtId.getText().trim()) - 1;
-            Personaje p = principal.getPersonajes()[id];
+            if(id < 0 || id >= principal.getTotalPersonajes()) {
+                JOptionPane.showMessageDialog(this, "No existe personaje con ese ID");
+                principal.registrarBitacora("Error por el ID al guardar datos (" + (id+1) + ")");
+                return;
+            }
 
+            //actualizar los datos que se modificaron
+            Personaje p = principal.getPersonajes()[id];
             p.setArma(txtArma.getText().trim());
             p.setHp(Integer.parseInt(txtHp.getText().trim()));
             p.setAtaque(Integer.parseInt(txtAtaque.getText().trim()));
@@ -101,8 +109,10 @@ public class ModificarPersonaje extends JFrame {
             p.setDefensa(Integer.parseInt(txtDefensa.getText().trim()));
 
             JOptionPane.showMessageDialog(this, "Datos modificados correctamente");
+            principal.registrarBitacora("Datos modificados del personaje: " + p.getNombre() + " (ID: " + (id+1) + ")");
         } catch(Exception e) {
             JOptionPane.showMessageDialog(this, "Revise que todos los campos sean correctos");
+            principal.registrarBitacora("Error al guardar cambios en personaje: datos invalidos");
         }
     }
 }
