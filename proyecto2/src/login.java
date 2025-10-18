@@ -100,7 +100,12 @@ public class login extends javax.swing.JFrame {
         String usuario = txtuser.getText().trim();
         String contrasena = new String(txtpass.getPassword()).trim();
         
-        if (usuario.equals("admin") && contrasena.equals("2025")) {
+        if (usuario.equals("user") && contrasena.equals("12345")) {
+            vendedor v = new vendedor();
+            v.setVisible(true);
+            this.dispose();
+        }
+        if (usuario.equals("admin") && contrasena.equals("IPC1F")) {
             admin ad = new admin();
             ad.setVisible(true);
             this.dispose();
@@ -114,6 +119,7 @@ public class login extends javax.swing.JFrame {
             txtuser.setText("");
             txtpass.setText("");
         }
+        
     }//GEN-LAST:event_btncontinuarActionPerformed
 
     /**
