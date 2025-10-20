@@ -34,6 +34,7 @@ public class login extends javax.swing.JFrame {
         txtuser = new javax.swing.JTextField();
         txtpass = new javax.swing.JPasswordField();
         btncontinuar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,6 +49,13 @@ public class login extends javax.swing.JFrame {
         btncontinuar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btncontinuarActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Salir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -73,7 +81,10 @@ public class login extends javax.swing.JFrame {
                         .addGap(48, 48, 48))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btncontinuar)
-                        .addGap(177, 177, 177))))
+                        .addGap(177, 177, 177))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,7 +101,9 @@ public class login extends javax.swing.JFrame {
                     .addComponent(txtpass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(btncontinuar)
-                .addGap(30, 30, 30))
+                .addGap(1, 1, 1)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
 
         pack();
@@ -103,6 +116,11 @@ public class login extends javax.swing.JFrame {
         if (usuario.equals("user") && contrasena.equals("12345")) {
             vendedor v = new vendedor();
             v.setVisible(true);
+            this.dispose();
+        }
+        if (usuario.equals("cliente") && contrasena.equals("12345")) {
+            cliente c = new cliente();
+            c.setVisible(true);
             this.dispose();
         }
         if (usuario.equals("admin") && contrasena.equals("IPC1F")) {
@@ -121,6 +139,10 @@ public class login extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btncontinuarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -159,6 +181,7 @@ public class login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btncontinuar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
