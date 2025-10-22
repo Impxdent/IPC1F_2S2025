@@ -113,16 +113,6 @@ public class login extends javax.swing.JFrame {
         String usuario = txtuser.getText().trim();
         String contrasena = new String(txtpass.getPassword()).trim();
         
-        if (usuario.equals("user") && contrasena.equals("12345")) {
-            vendedor v = new vendedor();
-            v.setVisible(true);
-            this.dispose();
-        }
-        if (usuario.equals("cliente") && contrasena.equals("12345")) {
-            cliente c = new cliente();
-            c.setVisible(true);
-            this.dispose();
-        }
         if (usuario.equals("admin") && contrasena.equals("IPC1F")) {
             admin ad = new admin();
             ad.setVisible(true);
