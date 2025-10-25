@@ -14,7 +14,7 @@ public class AgregarProducto extends JFrame{
     private JTextField txtCodigo, txtNombre, txtAtributo, txtPrecio;
     private JComboBox<String> cmbCategoria;
 
-    public AgregarProducto() {
+    public AgregarProducto() { //diseño de ventana
         setTitle("Agregar Producto");
         setSize(400, 300);
         setLocationRelativeTo(null);
@@ -24,14 +24,14 @@ public class AgregarProducto extends JFrame{
         add(new JLabel("Nombre:")); txtNombre = new JTextField(); add(txtNombre);
 
         add(new JLabel("Categoría:"));
-        cmbCategoria = new JComboBox<>(new String[]{"Alimentos", "Tecnología", "General"});
+        cmbCategoria = new JComboBox<>(new String[]{"Alimentos", "Tecnología", "General"}); //combobox con opciones de categoria
         add(cmbCategoria);
 
-        add(new JLabel("Atributo (caducidad/garantía/material):"));
+        add(new JLabel("Atributo:"));
         txtAtributo = new JTextField();
         add(txtAtributo);
 
-        add(new JLabel("Precio (Q):"));
+        add(new JLabel("Precio:"));
         txtPrecio = new JTextField();
         add(txtPrecio);
 
@@ -46,7 +46,7 @@ public class AgregarProducto extends JFrame{
     }
 
     private void guardar() {
-        try {
+        try { //guardar datos de textbox y mostrar en la tabla
             String c = txtCodigo.getText().trim();
             String n = txtNombre.getText().trim();
             String cat = (String) cmbCategoria.getSelectedItem();
@@ -54,14 +54,14 @@ public class AgregarProducto extends JFrame{
             double p = Double.parseDouble(txtPrecio.getText().trim());
 
             if (GestorProductos.agregar(c, n, cat, att, p)) {
-                JOptionPane.showMessageDialog(this, "Producto agregado.");
+                JOptionPane.showMessageDialog(this, "Producto agregado exitosamente");
                 new admin().setVisible(true);
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "Error: código duplicado o límite alcanzado.");
+                JOptionPane.showMessageDialog(this, "Error, codigo duplicado");
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error: verifica los datos (precio debe ser número).");
+            JOptionPane.showMessageDialog(this, "Error, verifique los datos");
         }
     }
 }

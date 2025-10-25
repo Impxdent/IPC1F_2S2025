@@ -16,7 +16,7 @@ public class AgregarVendedor extends JFrame{
      private JTextField txtCodigo, txtNombre, txtContrasena;
     private JComboBox<String> cmbGenero;
 
-    public AgregarVendedor() {
+    public AgregarVendedor() { //diseño de ventana
         setTitle("Agregar Vendedor");
         setSize(380, 260);
         setLocationRelativeTo(null);
@@ -37,16 +37,17 @@ public class AgregarVendedor extends JFrame{
     }
 
     private void guardar() {
+        //guardar datos
         String c = txtCodigo.getText().trim();
         String n = txtNombre.getText().trim();
         String g = (String) cmbGenero.getSelectedItem();
         String p = txtContrasena.getText().trim();
 
         if (c.isEmpty() || n.isEmpty() || p.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Complete todos los campos."); return;
+            JOptionPane.showMessageDialog(this, "Llene todos los campos"); return;
         }
         if (GestorVendedores.agregar(c,n,g,p)) {
-            JOptionPane.showMessageDialog(this, "Vendedor agregado.");
+            JOptionPane.showMessageDialog(this, "Vendedor agregado exitosamente");
             new admin().setVisible(true);
             dispose();
         } else {

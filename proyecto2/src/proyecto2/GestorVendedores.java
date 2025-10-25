@@ -12,14 +12,14 @@ public class GestorVendedores {
     private static final int MAX = 200;
     private static String[] codigos = new String[MAX];
     private static String[] nombres = new String[MAX];
-    private static String[] generos = new String[MAX]; // "M" o "F"
+    private static String[] generos = new String[MAX];
     private static String[] contrasenas = new String[MAX];
     private static int[] ventasConfirmadas = new int[MAX];
     private static int total = 0;
 
     public static boolean agregar(String codigo, String nombre, String genero, String contrasena) {
         if (total >= MAX) return false;
-        if (buscarIndicePorCodigo(codigo) != -1) return false; // duplicado
+        if (buscarIndicePorCodigo(codigo) != -1) return false; //validacion de id
         codigos[total] = codigo;
         nombres[total] = nombre;
         generos[total] = genero;
@@ -56,6 +56,7 @@ public class GestorVendedores {
         return -1;
     }
 
+    //getters y setters
     public static int getTotal() { 
         return total; 
     }

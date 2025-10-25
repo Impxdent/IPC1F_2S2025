@@ -17,7 +17,7 @@ public class admin extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10,10));
 
-        // Header
+        //encabezado
         JPanel header = new JPanel(new BorderLayout());
         JLabel titulo = new JLabel("Bienvenido Administrador", SwingConstants.LEFT);
         titulo.setFont(new Font("Segoe UI", Font.BOLD, 18));
@@ -27,10 +27,9 @@ public class admin extends JFrame {
         header.add(btnCerrarSesion, BorderLayout.EAST);
         add(header, BorderLayout.NORTH);
 
-        // Tabs
         JTabbedPane tabs = new JTabbedPane();
 
-        // ---- Vendedores ----
+        //tabla primera pestaña
         JPanel panelVend = new JPanel(new BorderLayout(8,8));
         modeloVendedores = new DefaultTableModel(new String[]{"Código","Nombre","Género","Ventas Confirmadas"}, 0) {
             @Override public boolean isCellEditable(int r,int c){ return false; }
@@ -51,14 +50,13 @@ public class admin extends JFrame {
 
         tabs.add("Vendedores", panelVend);
 
-        // ---- Productos ----
+        //tabla segunda pestaña
         JPanel panelProd = new JPanel(new BorderLayout(8,8));
         modeloProductos = new DefaultTableModel(
             new String[]{"Código", "Nombre", "Categoría", "Atributo", "Precio"}, 0
         );
         tablaProductos = new JTable(modeloProductos);
 
-        // Renderer/editor de botón en "Acciones"
         tablaProductos.getColumnModel().getColumn(3).setCellRenderer(new ButtonRenderer());
         tablaProductos.getColumnModel().getColumn(3).setCellEditor(new ButtonEditor(new JCheckBox()));
 
@@ -76,9 +74,9 @@ public class admin extends JFrame {
 
         tabs.add("Productos", panelProd);
 
-        // ---- Reportes ----
+        //tabla tercera pestaña (si guarda pdf pero no están correctos)
         JPanel panelRep = new JPanel(new BorderLayout(10,10));
-        JLabel lbl = new JLabel("Dé clic en el botón para generar los reportes (PDF en Escritorio)", SwingConstants.CENTER);
+        JLabel lbl = new JLabel("Dé clic en el botón para generar los reportes y guardarlos en el escritorio", SwingConstants.CENTER);
         lbl.setFont(new Font("Segoe UI", Font.PLAIN, 16));
         JButton btnReportes = new JButton("Generar PDFs de Vendedores y Productos");
         btnReportes.setFont(new Font("Segoe UI", Font.BOLD, 18));
@@ -89,12 +87,11 @@ public class admin extends JFrame {
 
         add(tabs, BorderLayout.CENTER);
 
-        // Cargar datos iniciales
         cargarTablas();
     }
 
     private void cargarTablas() {
-        // ----------- VENDEDORES -----------
+        //tabla de primera pestaña
         modeloVendedores.setRowCount(0);
         String[] c = GestorVendedores.getCodigos();
         String[] n = GestorVendedores.getNombres();
@@ -105,7 +102,7 @@ public class admin extends JFrame {
             modeloVendedores.addRow(new Object[]{ c[i], n[i], g[i], v[i] });
         }
 
-        // ----------- PRODUCTOS -----------
+        //tabla de segunda pestaña
         modeloProductos.setRowCount(0);
         String[] pc = GestorProductos.getCodigos();
         String[] pn = GestorProductos.getNombres();
@@ -136,7 +133,6 @@ public class admin extends JFrame {
         }
     }
 
-    // ---- Render/editor botón en tabla de productos ----
     private class ButtonRenderer extends JButton implements TableCellRenderer {
         public ButtonRenderer() { setOpaque(true); }
         @Override public Component getTableCellRendererComponent(JTable t, Object v, boolean isSel, boolean hasFocus, int row, int col) {

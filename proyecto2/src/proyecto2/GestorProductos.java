@@ -9,11 +9,13 @@ package proyecto2;
  * @author André
  */
 public class GestorProductos {
+    
+    //variables de almacenamiento
     private static final int MAX = 300;
     private static String[] codigos = new String[MAX];
     private static String[] nombres = new String[MAX];
     private static String[] categorias = new String[MAX];
-    private static String[] atributoUnico = new String[MAX]; // caducidad / garantía / material
+    private static String[] atributoUnico = new String[MAX];
     private static double[] precios = new double[MAX];
     private static int total = 0;
 
@@ -62,6 +64,7 @@ public class GestorProductos {
         return -1;
     }
 
+    //getters y setters
     public static int getTotal() { 
         return total; 
     }

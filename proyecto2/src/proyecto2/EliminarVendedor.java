@@ -35,7 +35,7 @@ public class EliminarVendedor extends JFrame{
         String c = txtCodigo.getText().trim();
         int i = GestorVendedores.buscarIndicePorCodigo(c);
         if (i == -1) {
-            JOptionPane.showMessageDialog(this, "No existe el vendedor.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No existe el vendedor", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         String resumen = "Código: " + c +
@@ -44,11 +44,11 @@ public class EliminarVendedor extends JFrame{
         int op = JOptionPane.showConfirmDialog(this, "¿Eliminar?\n\n" + resumen, "Confirmación", JOptionPane.YES_NO_OPTION);
         if (op == JOptionPane.YES_OPTION) {
             if (GestorVendedores.eliminar(c)) {
-                JOptionPane.showMessageDialog(this, "Vendedor eliminado.");
+                JOptionPane.showMessageDialog(this, "Vendedor eliminado exitosamente");
                 new admin().setVisible(true);
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "No se pudo eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No se pudo eliminar", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

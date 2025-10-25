@@ -22,7 +22,7 @@ public class cliente extends JFrame{
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));
 
-        // ----- ENCABEZADO -----
+        //encabezado
         JPanel header = new JPanel(new BorderLayout());
         JLabel lbl = new JLabel("Bienvenido, " + nombreCliente, SwingConstants.LEFT);
         lbl.setFont(new Font("Segoe UI", Font.BOLD, 18));
@@ -34,10 +34,9 @@ public class cliente extends JFrame{
         header.add(btnCerrarSesion, BorderLayout.EAST);
         add(header, BorderLayout.NORTH);
 
-        // ----- TABS -----
         JTabbedPane tabs = new JTabbedPane();
 
-        // ====== PRODUCTOS ======
+        //primera pestaña
         JPanel panelProd = new JPanel(new BorderLayout(8,8));
         modeloProductos = new DefaultTableModel(new String[]{"Código","Nombre","Categoría","Stock","Acciones"}, 0) {
             @Override public boolean isCellEditable(int r, int c) { return c == 4; }
@@ -46,7 +45,7 @@ public class cliente extends JFrame{
         panelProd.add(new JScrollPane(tablaProductos), BorderLayout.CENTER);
         tabs.add("Productos", panelProd);
 
-        // ====== CARRITO ======
+        //segunda pestaña
         JPanel panelCarrito = new JPanel(new BorderLayout(8,8));
         modeloCarrito = new DefaultTableModel(new String[]{"Código","Producto","Cantidad","Precio","Total","Opciones"}, 0) {
             @Override public boolean isCellEditable(int r, int c) { return c == 5; }
@@ -64,7 +63,7 @@ public class cliente extends JFrame{
         btnComprar.addActionListener(e -> realizarCompra());
         tabs.add("Carrito", panelCarrito);
 
-        // ====== HISTORIAL ======
+        //tercera pestaña
         JPanel panelHist = new JPanel(new BorderLayout(8,8));
         modeloHistorial = new DefaultTableModel(new String[]{"Código Compra","Fecha","Total"}, 0) {
             @Override public boolean isCellEditable(int r, int c) { return false; }
@@ -81,7 +80,6 @@ public class cliente extends JFrame{
         cargarHistorial();
     }
 
-    // ================= CARGAS =================
     private void cargarProductos() {
         modeloProductos.setRowCount(0);
         String[] c = GestorProductos.getCodigos();
@@ -146,7 +144,6 @@ public class cliente extends JFrame{
         tablaCarrito.getColumnModel().getColumn(5).setCellEditor(new OpcionesEditor(new JCheckBox(), this));
     }
 
-    // ===== BOTÓN "AGREGAR AL CARRITO" CON PRECIO REAL =====
     private static class BtnAgregarRenderer extends JButton implements TableCellRenderer {
         public BtnAgregarRenderer() { setOpaque(true); }
         @Override public Component getTableCellRendererComponent(JTable t, Object v, boolean s, boolean f, int r, int c) {
@@ -178,7 +175,6 @@ public class cliente extends JFrame{
             String codigo = (String) parent.modeloProductos.getValueAt(fila, 0);
             String nombre = (String) parent.modeloProductos.getValueAt(fila, 1);
 
-            // ✅ PRECIO REAL DESDE GESTORPRODUCTOS
             int index = GestorProductos.buscarIndicePorCodigo(codigo);
             double precio = GestorProductos.getPrecios()[index];
 
@@ -196,7 +192,6 @@ public class cliente extends JFrame{
         }
     }
 
-    // ===== COLUMN "OPCIONES" EN CARRITO =====
     private static class OpcionesRenderer extends JPanel implements TableCellRenderer {
         public OpcionesRenderer() {
             setLayout(new FlowLayout(FlowLayout.LEFT, 6, 0));

@@ -9,15 +9,17 @@ package proyecto2;
  * @author André
  */
 public class GestorClientes {
+    
+    //vectores de almacenamiento
     private static final int MAX = 300;
     private static String[] codigos = new String[MAX];
     private static String[] nombres = new String[MAX];
-    private static String[] generos = new String[MAX]; // "M" o "F"
+    private static String[] generos = new String[MAX]; 
     private static String[] cumple = new String[MAX];
     private static String[] contrasenas = new String[MAX];
     private static int total = 0;
 
-    // ---------- CRUD ----------
+    //crud
     public static boolean agregar(String codigo, String nombre, String genero, String fecha, String contrasena) {
         if (total >= MAX) return false;
         if (buscarIndicePorCodigo(codigo) != -1) return false;
@@ -59,11 +61,27 @@ public class GestorClientes {
         return -1;
     }
 
-    // ---------- GETTERS ----------
-    public static int getTotal() { return total; }
-    public static String[] getCodigos() { return codigos; }
-    public static String[] getNombres() { return nombres; }
-    public static String[] getGeneros() { return generos; }
-    public static String[] getCumples() { return cumple; }
-    public static String[] getContrasenas() { return contrasenas; }
+    public static int getTotal() { 
+        return total; 
+    }
+    
+    public static String[] getCodigos() { 
+        return codigos; 
+    }
+    
+    public static String[] getNombres() { 
+        return nombres; 
+    }
+    
+    public static String[] getGeneros() { 
+        return generos; 
+    }
+    
+    public static String[] getCumples() { 
+        return cumple; 
+    }
+    
+    public static String[] getContrasenas() { 
+        return contrasenas; 
+    }
 }

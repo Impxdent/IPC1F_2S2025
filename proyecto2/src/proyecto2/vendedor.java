@@ -20,13 +20,13 @@ public class vendedor extends JFrame {
     public vendedor(String nombreVendedor) {
         this.nombreVendedor = nombreVendedor;
 
+        //inicio de ventana
         setTitle("Panel del Vendedor - " + nombreVendedor);
         setSize(950, 550);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));
 
-        // ----- ENCABEZADO -----
         JPanel top = new JPanel(new BorderLayout());
         JLabel lbl = new JLabel("Bienvenido, " + nombreVendedor, SwingConstants.LEFT);
         lbl.setFont(new Font("Segoe UI", Font.BOLD, 18));
@@ -36,12 +36,11 @@ public class vendedor extends JFrame {
         top.add(btnCerrarSesion, BorderLayout.EAST);
         add(top, BorderLayout.NORTH);
 
-        // ----- TABS -----
         JTabbedPane tabs = new JTabbedPane();
 
-        // ====== PESTAÑA PRODUCTOS ======
         JPanel panelProd = new JPanel(new BorderLayout(8,8));
 
+        //primera pestaña
         modeloProductos = new DefaultTableModel(new String[]{"Código","Nombre","Categoría","Stock","Acciones"},0){
             public boolean isCellEditable(int r,int c){ return false; }
         };
@@ -57,14 +56,16 @@ public class vendedor extends JFrame {
         panelProd.add(panelBotonesProd, BorderLayout.EAST);
 
         btnAgregarStock.addActionListener(e -> agregarStock());
-        btnVerHistorial.addActionListener(e -> JOptionPane.showMessageDialog(this, "Historial de ingresos (simulado)."));
+        btnVerHistorial.addActionListener(e -> JOptionPane.showMessageDialog(this, "Historial"));
 
         tabs.add("Productos", panelProd);
 
-        // ====== PESTAÑA CLIENTES ======
+        //segunda pestaña
         JPanel panelCli = new JPanel(new BorderLayout(8,8));
         modeloClientes = new DefaultTableModel(new String[]{"Código","Nombre","Género","Cumpleaños"},0){
-            public boolean isCellEditable(int r,int c){ return false; }
+            public boolean isCellEditable(int r,int c){ 
+                return false; 
+            }
         };
         tablaClientes = new JTable(modeloClientes);
         panelCli.add(new JScrollPane(tablaClientes), BorderLayout.CENTER);
@@ -84,9 +85,9 @@ public class vendedor extends JFrame {
 
         tabs.add("Clientes", panelCli);
 
-        // ====== PESTAÑA PEDIDOS ======
+        //tercera pestaña
         JPanel panelPed = new JPanel(new BorderLayout(8,8));
-        modeloPedidos = new DefaultTableModel(new String[]{"Código Pedido","Fecha","Cod Cliente","Nombre Cliente","Total","Opciones"},0){
+        modeloPedidos = new DefaultTableModel(new String[]{"Cod Pedido","Fecha","Cod Cliente","Nombre Cliente","Total","Opciones"},0){
             public boolean isCellEditable(int r,int c){ return false; }
         };
         tablaPedidos = new JTable(modeloPedidos);
@@ -103,12 +104,11 @@ public class vendedor extends JFrame {
 
         add(tabs, BorderLayout.CENTER);
 
-        // Carga inicial
         cargarTablas();
     }
 
     private void cargarTablas() {
-        // Productos
+        //tabla de productos
         modeloProductos.setRowCount(0);
         String[] cod = GestorProductos.getCodigos();
         String[] nom = GestorProductos.getNombres();
@@ -117,7 +117,7 @@ public class vendedor extends JFrame {
             modeloProductos.addRow(new Object[]{cod[i], nom[i], cat[i], 0, "Ver historial"});
         }
 
-        // Clientes
+        // tabla de clientes
         modeloClientes.setRowCount(0);
         String[] c = GestorClientes.getCodigos();
         String[] n = GestorClientes.getNombres();
@@ -127,7 +127,6 @@ public class vendedor extends JFrame {
             modeloClientes.addRow(new Object[]{c[i], n[i], g[i], f[i]});
         }
 
-        // Pedidos (vacíos de momento)
         modeloPedidos.setRowCount(0);
     }
 
@@ -157,7 +156,7 @@ public class vendedor extends JFrame {
     }
 
     private void confirmarPedido() {
-        JOptionPane.showMessageDialog(this, "Pedido confirmado (simulado).");
+        JOptionPane.showMessageDialog(this, "Pedido");
     }
 
     @Override

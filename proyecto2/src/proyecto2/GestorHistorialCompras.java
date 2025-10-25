@@ -18,16 +18,27 @@ public class GestorHistorialCompras {
     private static int total = 0;
 
     public static void registrarCompra(double totalCompra) {
-        String codigo = "C" + (total + 1);
-        String fecha = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date());
+        String codigo = "C" + (total + 1); //agrega la C al código
+        String fecha = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date()); //guarda la fecha y hora
         codigosCompra[total] = codigo;
         fechas[total] = fecha;
         totales[total] = totalCompra;
         total++;
     }
 
-    public static int getTotal() { return total; }
-    public static String[] getCodigos() { return codigosCompra; }
-    public static String[] getFechas() { return fechas; }
-    public static double[] getTotales() { return totales; }
+    public static int getTotal() { 
+        return total; 
+    }
+    
+    public static String[] getCodigos() { 
+        return codigosCompra; 
+    }
+    
+    public static String[] getFechas() { 
+        return fechas; 
+    }
+    
+    public static double[] getTotales() { 
+        return totales; 
+    }
 }

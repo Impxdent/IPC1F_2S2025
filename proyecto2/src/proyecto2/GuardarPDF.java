@@ -12,7 +12,7 @@ import java.util.Date;
  *
  * @author André
  */
-public class GuardarPDF {
+public class GuardarPDF { //clase para guardar pdf (no funciona)
     public static File generarPDFVendedoresEnEscritorio() throws IOException {
         String userHome = System.getProperty("user.home");
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());

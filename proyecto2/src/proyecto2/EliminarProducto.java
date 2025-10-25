@@ -13,7 +13,7 @@ import java.awt.*;
 public class EliminarProducto extends JFrame{
     private JTextField txtCodigo;
 
-    public EliminarProducto() {
+    public EliminarProducto() { //diseño de ventana
         setTitle("Eliminar Producto");
         setSize(380, 160);
         setLocationRelativeTo(null);
@@ -31,11 +31,11 @@ public class EliminarProducto extends JFrame{
         btnVolver.addActionListener(e -> { new admin().setVisible(true); dispose(); });
     }
 
-    private void eliminar() {
+    private void eliminar() { //validacion por id
         String c = txtCodigo.getText().trim();
         int i = GestorProductos.buscarIndicePorCodigo(c);
         if (i == -1) {
-            JOptionPane.showMessageDialog(this, "No existe el producto.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No existe el producto", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         String resumen = "Código: " + c +
@@ -46,10 +46,10 @@ public class EliminarProducto extends JFrame{
         int op = JOptionPane.showConfirmDialog(this, "¿Eliminar?\n\n" + resumen, "Confirmación", JOptionPane.YES_NO_OPTION);
         if (op == JOptionPane.YES_OPTION) {
             if (GestorProductos.eliminar(c)) {
-                JOptionPane.showMessageDialog(this, "Producto eliminado.");
+                JOptionPane.showMessageDialog(this, "Producto eliminado exitosamente");
                 new admin().setVisible(true); dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "No se pudo eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No se pudo eliminar", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

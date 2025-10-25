@@ -15,12 +15,14 @@ public class AgregarCliente extends JFrame{
     private JComboBox<String> cmbGenero;
 
     public AgregarCliente() {
+        //diseño de la ventana
         setTitle("Agregar Cliente");
         setSize(400, 300);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(new GridLayout(6,2,8,8));
 
+        //componentes para texto
         add(new JLabel("Código:")); txtCodigo = new JTextField(); add(txtCodigo);
         add(new JLabel("Nombre:")); txtNombre = new JTextField(); add(txtNombre);
         add(new JLabel("Género:")); cmbGenero = new JComboBox<>(new String[]{"M","F"}); add(cmbGenero);
@@ -43,15 +45,15 @@ public class AgregarCliente extends JFrame{
         String p = txtContrasena.getText().trim();
 
         if (c.isEmpty() || n.isEmpty() || f.isEmpty() || p.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Complete todos los campos."); return;
+            JOptionPane.showMessageDialog(this, "Error, llene todos los campos"); return;
         }
 
         if (GestorClientes.agregar(c, n, g, f, p)) {
-            JOptionPane.showMessageDialog(this, "Cliente agregado correctamente.");
+            JOptionPane.showMessageDialog(this, "Cliente agregado exitosamente");
             new vendedor("Vendedor").setVisible(true);
             dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Error: código duplicado o límite alcanzado.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, codigo duplicado ", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

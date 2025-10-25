@@ -38,30 +38,30 @@ public class ModificarVendedor extends JFrame{
         btnVolver.addActionListener(e -> { new admin().setVisible(true); dispose(); });
     }
 
-    private void cargarDatos() {
+    private void cargarDatos() { //validación de datos
         String codigo = txtBuscarCodigo.getText().trim();
         int i = GestorVendedores.buscarIndicePorCodigo(codigo);
         if (i == -1) {
-            JOptionPane.showMessageDialog(this, "No existe el vendedor.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No existe el vendedor", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         txtNombre.setText(GestorVendedores.getNombres()[i]);
         txtContrasena.setText(GestorVendedores.getContrasenas()[i]);
     }
 
-    private void guardarCambios() {
+    private void guardarCambios() { //extraer el texto del textbox y guardarlo en los vectores
         String codigo = txtBuscarCodigo.getText().trim();
         String nombre = txtNombre.getText().trim();
         String pass = txtContrasena.getText().trim();
         if (codigo.isEmpty() || nombre.isEmpty() || pass.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Complete todos los campos."); return;
+            JOptionPane.showMessageDialog(this, "Error, llene todos los campos"); return;
         }
         if (GestorVendedores.modificar(codigo, nombre, pass)) {
-            JOptionPane.showMessageDialog(this, "Cambios guardados.");
+            JOptionPane.showMessageDialog(this, "Cambios guardados");
             new admin().setVisible(true);
             dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "No se pudo modificar.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, no se pudo modificar", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

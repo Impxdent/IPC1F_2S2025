@@ -9,6 +9,7 @@ package proyecto2;
  * @author André
  */
 public class GestorCarrito {
+    //almacenamiento de variables con vectores
     private static final int MAX = 100;
     private static String[] codigos = new String[MAX];
     private static String[] nombres = new String[MAX];
@@ -17,7 +18,7 @@ public class GestorCarrito {
     private static int total = 0;
 
     public static boolean agregar(String codigo, String nombre, double precio, int cantidad) {
-        // Ver si ya está en el carrito
+        //verificar si ya está en el carrito
         for (int i = 0; i < total; i++) {
             if (codigos[i].equals(codigo)) {
                 cantidades[i] += cantidad;
@@ -66,11 +67,25 @@ public class GestorCarrito {
         return totalC;
     }
 
-    public static int getTotal() { return total; }
-    public static String[] getCodigos() { return codigos; }
-    public static String[] getNombres() { return nombres; }
-    public static double[] getPrecios() { return precios; }
-    public static int[] getCantidades() { return cantidades; }
+    public static int getTotal() { 
+        return total; 
+    }
+    
+    public static String[] getCodigos() { 
+        return codigos; 
+    }
+    
+    public static String[] getNombres() { 
+        return nombres; 
+    }
+    
+    public static double[] getPrecios() { 
+        return precios; 
+    }
+    
+    public static int[] getCantidades() { 
+        return cantidades; 
+    }
 
     public static void vaciar() { total = 0; }
 }

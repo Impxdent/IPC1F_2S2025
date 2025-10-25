@@ -38,11 +38,11 @@ public class ModificarCliente extends JFrame{
         btnVolver.addActionListener(e -> { new vendedor("Vendedor").setVisible(true); dispose(); });
     }
 
-    private void buscar() {
+    private void buscar() { //buscar por id
         String codigo = txtBuscar.getText().trim();
         int i = GestorClientes.buscarIndicePorCodigo(codigo);
         if (i == -1) {
-            JOptionPane.showMessageDialog(this, "Cliente no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, cliente no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         txtNombre.setText(GestorClientes.getNombres()[i]);
@@ -51,7 +51,7 @@ public class ModificarCliente extends JFrame{
         txtContrasena.setText(GestorClientes.getContrasenas()[i]);
     }
 
-    private void guardar() {
+    private void guardar() { //guardar los datos de los textbox
         String c = txtBuscar.getText().trim();
         String n = txtNombre.getText().trim();
         String g = (String) cmbGenero.getSelectedItem();
@@ -59,15 +59,15 @@ public class ModificarCliente extends JFrame{
         String p = txtContrasena.getText().trim();
 
         if (c.isEmpty() || n.isEmpty() || f.isEmpty() || p.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Complete todos los campos."); return;
+            JOptionPane.showMessageDialog(this, "Error, llene todos los campos"); return;
         }
 
         if (GestorClientes.modificar(c, n, g, f, p)) {
-            JOptionPane.showMessageDialog(this, "Cliente modificado correctamente.");
+            JOptionPane.showMessageDialog(this, "Cliente modificado exitosamente");
             new vendedor("Vendedor").setVisible(true);
             dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Error al modificar.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al modificar", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

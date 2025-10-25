@@ -13,7 +13,7 @@ import java.awt.*;
 public class EliminarCliente extends JFrame{
     private JTextField txtCodigo;
 
-    public EliminarCliente() {
+    public EliminarCliente() { //diseño de ventana
         setTitle("Eliminar Cliente");
         setSize(360, 160);
         setLocationRelativeTo(null);
@@ -31,11 +31,11 @@ public class EliminarCliente extends JFrame{
         btnVolver.addActionListener(e -> { new vendedor("Vendedor").setVisible(true); dispose(); });
     }
 
-    private void eliminar() {
+    private void eliminar() { //validacion de id
         String c = txtCodigo.getText().trim();
         int i = GestorClientes.buscarIndicePorCodigo(c);
         if (i == -1) {
-            JOptionPane.showMessageDialog(this, "No existe ese cliente.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No existe ese cliente", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -44,14 +44,14 @@ public class EliminarCliente extends JFrame{
                 "\nGénero: " + GestorClientes.getGeneros()[i] +
                 "\nCumpleaños: " + GestorClientes.getCumples()[i];
 
-        int op = JOptionPane.showConfirmDialog(this, "¿Deseas eliminar este cliente?\n\n" + resumen, "Confirmar", JOptionPane.YES_NO_OPTION);
+        int op = JOptionPane.showConfirmDialog(this, "¿Desea eliminar este cliente?\n\n" + resumen, "Confirmar", JOptionPane.YES_NO_OPTION);
         if (op == JOptionPane.YES_OPTION) {
             if (GestorClientes.eliminar(c)) {
-                JOptionPane.showMessageDialog(this, "Cliente eliminado correctamente.");
+                JOptionPane.showMessageDialog(this, "Cliente eliminado exitosamente");
                 new vendedor("Vendedor").setVisible(true);
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "Error al eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No se pudo eliminar", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

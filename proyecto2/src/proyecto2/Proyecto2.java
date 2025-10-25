@@ -17,6 +17,7 @@ public class Proyecto2 extends JFrame{
     private JButton btnIngresar, btnSalir;
 
     public Proyecto2() {
+        //encabezado de ventana
         setTitle("Login del Sistema");
         setSize(400, 250);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -27,6 +28,7 @@ public class Proyecto2 extends JFrame{
         gbc.insets = new Insets(8, 8, 8, 8);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
+        //diseño de ventana
         JLabel lblTitulo = new JLabel("Inicio de Sesión", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 18));
         gbc.gridwidth = 2;
@@ -63,10 +65,8 @@ public class Proyecto2 extends JFrame{
         btnSalir = new JButton("Salir");
         add(btnSalir, gbc);
 
-        // Evento para botón Ingresar
         btnIngresar.addActionListener(e -> validarCredenciales());
 
-        // Evento para botón Salir
         btnSalir.addActionListener(e -> System.exit(0));
 
         setVisible(true);
@@ -76,18 +76,17 @@ public class Proyecto2 extends JFrame{
         String u = txtUsuario.getText().trim();
         String p = new String(txtContrasena.getPassword());
 
-        // Login de administrador
+        //inicio de sesión para administrador
         if (u.equals("admin") && p.equals("IPC1F")) {
-            JOptionPane.showMessageDialog(this, "Bienvenido administrador.");
+            JOptionPane.showMessageDialog(this, "Bienvenido administrador");
             new admin().setVisible(true);
             dispose();
             return;
         }
 
-        // Login de vendedor
+        //inicio de sesión para vendedor con datos registrados por administrador
         int idx = GestorVendedores.buscarIndicePorCodigo(u);
         if (idx == -1) {
-            // También intentar buscar por nombre
             for (int i = 0; i < GestorVendedores.getTotal(); i++) {
                 if (GestorVendedores.getNombres()[i].equalsIgnoreCase(u)) {
                     idx = i;
@@ -102,14 +101,13 @@ public class Proyecto2 extends JFrame{
             dispose();
             return;
         } else {
-            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
             txtContrasena.setText("");
         }
         
-        // LOGIN DE CLIENTE
+        //iniciar sesión cliente
         int idCliente = GestorClientes.buscarIndicePorCodigo(u);
         if (idCliente == -1) {
-            // también buscar por nombre
             for (int i = 0; i < GestorClientes.getTotal(); i++) {
                 if (GestorClientes.getNombres()[i].equalsIgnoreCase(u)) {
                     idCliente = i;
